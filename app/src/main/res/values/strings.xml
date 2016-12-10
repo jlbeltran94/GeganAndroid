@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Gegan</string>
+    <string name="log_reg">Registrarse</string>
+    <string name="login">Entrar</string>
+</resources>
