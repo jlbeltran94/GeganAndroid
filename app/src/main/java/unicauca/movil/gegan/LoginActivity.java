@@ -26,12 +26,18 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     public void goToReg(){
+
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToMain(){
         String usr =  binding.idUsr.getEditText().getText().toString();
         String pass =  binding.pass.getEditText().getText().toString();
 
         Log.i("Restaurante", "Usr:"+usr+" Pass:"+pass);
 
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }

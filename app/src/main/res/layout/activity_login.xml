@@ -94,6 +94,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_width="@dimen/log_btn"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()-> handler.goToMain()}"
                     />
 
             </RelativeLayout>

@@ -6,8 +6,16 @@ package unicauca.movil.gegan.models;
 
 public class Finca {
 
-    private long id;
+    private long id, idusr;
     private String nombre, direccion, imagen;
+
+    public long getIdusr() {
+        return idusr;
+    }
+
+    public void setIdusr(long idusr) {
+        this.idusr = idusr;
+    }
 
     public long getId() {
         return id;
