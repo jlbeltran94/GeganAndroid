@@ -1,6 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
-</LinearLayout>
+    <data>
+        <variable
+            name="handler"
+            type="unicauca.movil.gegan.FincaDetailActivity"/>
+        <variable
+            name="finca"
+            type="unicauca.movil.gegan.models.Finca"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/small"
+            tools:text="Nombre de la finca"
+            android:text="@{finca.nombre}"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_img"
+            android:layout_margin="@dimen/small"
+            android:elevation="@dimen/small"
+            >
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/fincas"
+                android:src="@{finca.imagen}"
+                />
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_marginLeft="@dimen/small"
+            android:layout_marginRight="@dimen/small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/xsmall">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/xsmall">
+                <ImageView
+                    android:id="@+id/icon_loc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_loc_24dp"/>
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_toRightOf="@id/icon_loc"
+                    android:layout_alignBottom="@id/icon_loc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="20dp"
+                    tools:text="Dirección"
+                    android:text="@{finca.direccion}"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+</layout>

@@ -11,4 +11,5 @@
     <dimen name="template_img">180dp</dimen>
     <dimen name="icon">24dp</dimen>
     <dimen name="ic_add_photo">50dp</dimen>
+    <dimen name="detail_img">200dp</dimen>
 </resources>
