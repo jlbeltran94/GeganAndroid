@@ -69,6 +69,14 @@
                     android:textSize="20dp"
                     tools:text="Dirección"
                     android:text="@{finca.direccion}"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/address"
+                    style="@style/TextAppearance.AppCompat.Body1"
+                    android:textSize="50dp"
+                    android:text="Animales"
+                    android:onClick="@{()-> handler.goToAnimales()}"/>
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>

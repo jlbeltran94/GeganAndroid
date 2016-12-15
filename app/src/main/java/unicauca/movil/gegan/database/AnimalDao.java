@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import unicauca.movil.gegan.models.Animal;
@@ -20,11 +23,17 @@ public class AnimalDao {
 
     SQLiteDatabase db;
     static final String TABLE = "animal";
-    static final String C_ID = "id";
     static final String C_IDFINCA = "id_finca";
     static final String C_NAME = "nombre";
-    static final String C_RAZA = "direccion";
+    static final String C_RAZA = "raza";
+    static final String C_SEXO = "sexo";
+    static final String C_TIPO = "tipo";
     static final String C_IMAGE = "imagen";
+    static final String C_PESO = "peso";
+    static final String C_PESO_AL_NACER = "peso_al_nacer";
+    static final String C_LITROS = "litros_diarios";
+    static final String C_GANANCIA = "ganancia";
+    static final String C_NACIMIENTO = "nacimiento";
 
     public AnimalDao(Context context){
         DataBaseHelper helper = new DataBaseHelper(context);
@@ -33,22 +42,38 @@ public class AnimalDao {
 
     public void insert(Animal animal){
         ContentValues values = new ContentValues();
-        values.put(C_ID, animal.getId());
-        values.put(C_IDFINCA, animal.getId_finca());
         values.put(C_NAME, animal.getNombre());
         values.put(C_RAZA, animal.getRaza());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = animal.getNacimiento();
+        values.put(C_NACIMIENTO, dateFormat.format(date));
+        values.put(C_TIPO, animal.getTipo());
+        values.put(C_PESO, animal.getPeso());
+        values.put(C_LITROS, animal.getLitros_diarios());
+        values.put(C_IDFINCA, animal.getId_finca());
         values.put(C_IMAGE, animal.getImagen());
+        values.put(C_PESO_AL_NACER, animal.getPeso_al_nacer());
+        values.put(C_GANANCIA, animal.getGanancia());
+
+
 
         db.insert(TABLE, null, values);
     }
 
     public void update(Animal animal){
         ContentValues values = new ContentValues();
-        values.put(C_ID, animal.getId());
-        values.put(C_IDFINCA, animal.getId_finca());
         values.put(C_NAME, animal.getNombre());
         values.put(C_RAZA, animal.getRaza());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = animal.getNacimiento();
+        values.put(C_NACIMIENTO, dateFormat.format(date));
+        values.put(C_TIPO, animal.getTipo());
+        values.put(C_PESO, animal.getPeso());
+        values.put(C_LITROS, animal.getLitros_diarios());
+        values.put(C_IDFINCA, animal.getId_finca());
         values.put(C_IMAGE, animal.getImagen());
+        values.put(C_PESO_AL_NACER, animal.getPeso_al_nacer());
+        values.put(C_GANANCIA, animal.getGanancia());
 
         db.update(TABLE, values, "id = ?", new String[]{""+animal.getId()});
     }
@@ -58,50 +83,58 @@ public class AnimalDao {
     }
 
 
-    public List<Finca> listByUsr(long idusr){
-        String sql = "SELECT * FROM "+ TABLE+" WHERE "+C_IDFINCA+" = "+idusr;
+    public List<Animal> listByFinca(long idfinca) throws ParseException {
+        String sql = "SELECT * FROM "+ TABLE+" WHERE "+C_IDFINCA+" = "+idfinca;
 
-        Log.i("Finca", sql);
+        Log.i("ANIMAL", sql);
         return cursorToList(sql);
     }
 
-    public Finca getById(long id){
+    public Animal getById(long id) throws ParseException {
         String sql = "SELECT * FROM "+ TABLE+" WHERE id = "+id;
         Cursor cursor = db.rawQuery(sql, null);
 
         if(cursor.getCount() > 0){
             cursor.moveToNext();
-            return cursorToFinca(cursor);
+            return cursorToAnimal(cursor);
         }else {
             return null;
         }
     }
 
 
-    public List<Finca> lista(){
+    public List<Animal> lista() throws ParseException {
         String sql = "SELECT * FROM "+ TABLE;
         Log.i("SQL", sql);
         return cursorToList(sql);
     }
 
-    private Finca cursorToFinca(Cursor cursor){
-        Finca f = new Finca();
-        f.setId(cursor.getLong(0));
-        f.setIdusr(cursor.getLong(1));
-        f.setNombre(cursor.getString(2));
-        f.setDireccion(cursor.getString(3));
-        f.setImagen(cursor.getString(4));
-        return f;
+    private Animal cursorToAnimal(Cursor cursor) throws ParseException {
+        Animal a = new Animal();
+        a.setId(cursor.getLong(0));
+        a.setNombre(cursor.getString(1));
+        a.setRaza(cursor.getString(2));
+        a.setSexo(cursor.getString(3));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        a.setNacimiento(dateFormat.parse(cursor.getString(4)));
+        a.setTipo(cursor.getString(5));
+        a.setPeso(cursor.getFloat(6));
+        a.setLitros_diarios(cursor.getFloat(7));
+        a.setId_finca(cursor.getLong(8));
+        a.setImagen(cursor.getString(9));
+        a.setPeso_al_nacer(cursor.getFloat(10));
+        a.setGanancia(cursor.getFloat(11));
+        return a;
     }
 
 
-    private List<Finca> cursorToList(String sql){
+    private List<Animal> cursorToList(String sql) throws ParseException {
         Cursor cursor = db.rawQuery(sql, null);
-        List<Finca> data = new ArrayList<>();
+        List<Animal> data = new ArrayList<>();
 
         while (cursor.moveToNext()){
-            Finca f = cursorToFinca(cursor);
-            data.add(f);
+            Animal a = cursorToAnimal(cursor);
+            data.add(a);
         }
         return data;
     }

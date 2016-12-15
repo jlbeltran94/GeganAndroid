@@ -19,7 +19,6 @@ public class FincaDao {
 
     SQLiteDatabase db;
     static final String TABLE = "finca";
-    static final String C_ID = "id";
     static final String C_IDUSR = "idusr";
     static final String C_NAME = "nombre";
     static final String C_ADDRESS = "direccion";

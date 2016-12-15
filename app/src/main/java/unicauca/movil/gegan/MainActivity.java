@@ -2,6 +2,7 @@ package unicauca.movil.gegan;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements FincaAdapter.OnFi
     FincaAdapter adapter;
     FincaDao dao;
     Finca finca;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements FincaAdapter.OnFi
         adapter = new FincaAdapter(getLayoutInflater(), this);
         binding.recycler.setAdapter(adapter);
         binding.recycler.setLayoutManager(new LinearLayoutManager(this));
+        preferences = getSharedPreferences("preferencias", MODE_PRIVATE);
         loadData();
 
 
@@ -60,7 +63,16 @@ public class MainActivity extends AppCompatActivity implements FincaAdapter.OnFi
     }
 
     @Override
-    public void onFinca(View v) {
+    public void onFinca(Long id) {
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putLong("idfinca", id);
+        editor.apply();
+        Intent intent = new Intent(this, FincaDetailActivity.class);
+        intent.putExtra(FincaDetailActivity.EXTRA_IDFINCA, id);
+
+        startActivity(intent);
+
 
     }
 
@@ -90,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements FincaAdapter.OnFi
 
                     }
                 })
-                .setIcon(R.drawable.ic_insert_photo2_24dp)
+                .setIcon(R.drawable.ic_error_outline_24dp)
                 .show();
 
     }

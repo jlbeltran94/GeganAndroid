@@ -20,7 +20,7 @@ import unicauca.movil.gegan.util.L;
 public class FincaAdapter extends RecyclerView.Adapter<FincaAdapter.FincaViewHolder> {
 
     public interface OnFincaListener{
-        void onFinca(View v);
+        void onFinca(Long id);
         void onDelete(Long id);
         void onEdit(Long id);
     }
@@ -62,6 +62,10 @@ public class FincaAdapter extends RecyclerView.Adapter<FincaAdapter.FincaViewHol
 
             binding = DataBindingUtil.bind(itemView);
         }
+    }
+
+    public void onClickFinca(Long id){
+        onFincaListener.onFinca(id);
     }
 
     public void onClickDelete(Long id){
