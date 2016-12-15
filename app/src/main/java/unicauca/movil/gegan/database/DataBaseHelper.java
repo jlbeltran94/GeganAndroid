@@ -11,21 +11,21 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    static final String DB_NAME = "gegan.db";
-    static int VERSION =9;
+    static final String DB_NAME = "gegan2.db";
+    static int VERSION = 1;
     public DataBaseHelper(Context context){
         super(context, DB_NAME, null, VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sqlFinca = "CREATE TABLE IF NOT EXISTS finca (id INTEGER PRIMARY KEY AUTOINCREMENT" +
+        String sqlFinca = "CREATE TABLE finca (id INTEGER PRIMARY KEY AUTOINCREMENT" +
                 ", idusr INTEGER" +
                 ", nombre VARCHAR" +
                 ", direccion VARCHAR" +
                 ", imagen LONGTEXT" +
                 ")";
-        String sqlAnimal = "CREATE TABLE IF NOT EXISTS animal (id INTEGER PRIMARY KEY AUTOINCREMENT" +
+        String sqlAnimal = "CREATE TABLE animal (id INTEGER PRIMARY KEY AUTOINCREMENT" +
                 ", nombre VARCHAR" +
                 ", raza VARCHAR" +
                 ", sexo VARCHAR" +
@@ -38,7 +38,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 ", peso_al_nacer FLOAT" +
                 ", ganancia FLOAT" +
                 ")";
-        String sqlReporte = "CREATE TABLE IF NOT EXISTS reporte (id INTEGER PRIMARY KEY AUTOINCREMENT" +
+        String sqlReporte = "CREATE TABLE reporte (id INTEGER PRIMARY KEY AUTOINCREMENT" +
                 ", tipo VARCHAR" +
                 ", valor DOUBLE" +
                 ", comentario VARCHAR" +

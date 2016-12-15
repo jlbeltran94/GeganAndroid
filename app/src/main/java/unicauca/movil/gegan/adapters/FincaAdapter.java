@@ -22,6 +22,7 @@ public class FincaAdapter extends RecyclerView.Adapter<FincaAdapter.FincaViewHol
     public interface OnFincaListener{
         void onFinca(View v);
         void onDelete(Long id);
+        void onEdit(Long id);
     }
 
 
@@ -65,6 +66,10 @@ public class FincaAdapter extends RecyclerView.Adapter<FincaAdapter.FincaViewHol
 
     public void onClickDelete(Long id){
         onFincaListener.onDelete(id);
+    }
+
+    public void onClickEdit(Long id){
+        onFincaListener.onEdit(id);
     }
 
 

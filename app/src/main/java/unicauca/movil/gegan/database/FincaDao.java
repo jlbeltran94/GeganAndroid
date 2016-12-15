@@ -43,7 +43,6 @@ public class FincaDao {
 
     public void update(Finca finca){
         ContentValues values = new ContentValues();
-
         values.put(C_IDUSR, finca.getIdusr());
         values.put(C_NAME, finca.getNombre());
         values.put(C_ADDRESS, finca.getDireccion());

@@ -85,6 +85,7 @@
                     android:layout_below="@id/icon_delete"
                     android:layout_alignRight="@id/icon_delete"
                     android:src="@drawable/ic_edit_24dp"
+                    android:onClick="@{()->handler.onClickEdit(fin.id)}"
                     />
 
             </RelativeLayout>

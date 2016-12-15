@@ -36,9 +36,13 @@ public class AddFincaActivity extends AppCompatActivity{
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private String selectedImagePath;
     private static final int SELECT_PICTURE = 2;
+    public static final String EXTRA_ID = "id";
+    public static final String EXTRA_EDIT = "edit";
     Finca finca;
     FincaDao dao;
     String encoded;
+    int edit;
+    Long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,34 @@ public class AddFincaActivity extends AppCompatActivity{
         encoded = new String();
         finca = new Finca();
         dao = new FincaDao(this);
+
+        edit = getIntent().getExtras().getInt(EXTRA_EDIT);
+        if (edit == 1){
+            id =  getIntent().getExtras().getLong(EXTRA_ID);
+            finca = dao.getById(id);
+            encoded = finca.getImagen();
+            binding.address.getEditText().setText(finca.getDireccion());
+            binding.name.getEditText().setText(finca.getNombre());
+            binding.button.setText("EDITAR");
+
+            byte[] decodedString = Base64.decode(encoded, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+            binding.finImg.setImageBitmap(decodedByte);
+
+            binding.finImg.requestLayout();
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) binding.finImg.getLayoutParams();
+            lp.width = 600;
+            lp.height = 500;
+            binding.finImg.setLayoutParams(lp);
+
+
+        }
+
+
+
+
+
 
 
     }
@@ -175,8 +207,15 @@ public class AddFincaActivity extends AppCompatActivity{
         finca.setDireccion(direccion);
         finca.setImagen(imagen);
 
-        dao.insert(finca);
-        finish();
+        if(edit == 0){
+            dao.insert(finca);
+            finish();
+        }else {
+            dao.update(finca);
+            finish();
+        }
+
+
 
 
     }
