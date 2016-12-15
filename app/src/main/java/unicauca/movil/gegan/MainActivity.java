@@ -60,6 +60,13 @@ public class MainActivity extends AppCompatActivity implements FincaAdapter.OnFi
 
     }
 
+    @Override
+    public void onDelete(Long id){
+        dao.delete(id);
+        loadData();
+        adapter.notifyDataSetChanged();
+    }
+
     public void goToAdd(){
         Intent intent = new Intent(this, AddFincaActivity.class);
         startActivity(intent);

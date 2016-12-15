@@ -76,6 +76,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_margin="@dimen/xsmall"
                     android:src="@drawable/ic_delete_24dp"
+                    android:onClick="@{()->handler.onClickDelete(fin.id)}"
+
                     />
                 <ImageView
                     android:layout_width="@dimen/icon"

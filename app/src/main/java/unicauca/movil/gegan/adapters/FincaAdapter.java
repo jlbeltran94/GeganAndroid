@@ -1,11 +1,13 @@
 package unicauca.movil.gegan.adapters;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import unicauca.movil.gegan.AddFincaActivity;
 import unicauca.movil.gegan.R;
 import unicauca.movil.gegan.databinding.TemplateFincaBinding;
 import unicauca.movil.gegan.util.L;
@@ -19,7 +21,9 @@ public class FincaAdapter extends RecyclerView.Adapter<FincaAdapter.FincaViewHol
 
     public interface OnFincaListener{
         void onFinca(View v);
+        void onDelete(Long id);
     }
+
 
     LayoutInflater inflater;
     OnFincaListener onFincaListener;
@@ -58,4 +62,10 @@ public class FincaAdapter extends RecyclerView.Adapter<FincaAdapter.FincaViewHol
             binding = DataBindingUtil.bind(itemView);
         }
     }
+
+    public void onClickDelete(Long id){
+        onFincaListener.onDelete(id);
+    }
+
+
 }
