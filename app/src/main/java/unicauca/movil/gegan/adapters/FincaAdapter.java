@@ -40,6 +40,7 @@ public class FincaAdapter extends RecyclerView.Adapter<FincaAdapter.FincaViewHol
     public void onBindViewHolder(FincaViewHolder holder, int position) {
         holder.binding.setFin(L.data.get(position));
         holder.binding.setHandler(this);
+
     }
 
     @Override

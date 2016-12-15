@@ -1,15 +1,23 @@
 package unicauca.movil.gegan;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.squareup.picasso.Picasso;
 
 import unicauca.movil.gegan.databinding.ActivityRegisterBinding;
 
@@ -20,10 +28,13 @@ import unicauca.movil.gegan.databinding.ActivityRegisterBinding;
 public class RegisterActivity extends AppCompatActivity{
 
     ActivityRegisterBinding binding;
+    //String typeP;
 
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    private String selectedImagePath;
+    private static final int SELECT_PICTURE = 2;
 
-    private static final int SELECT_PICTURE = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +47,14 @@ public class RegisterActivity extends AppCompatActivity{
         //lp.height = y;
         //imageView.setLayoutParams(lp)
 
+//        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) binding.usrImg.getLayoutParams();
 
 
 
 
     }
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int REQUEST_GALLERY_IMAGE = 2;
+
 
     public void takePic() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -70,22 +81,87 @@ public class RegisterActivity extends AppCompatActivity{
                 .setMessage("Selecciona una imagen o tómala ahora mismo")
                 .setPositiveButton("Galería", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                      //  typeP = "Galería";
+                      //  binding.uname.requestLayout();
+                      //  binding.uname.setText(typeP);
                         getPic();
+
                     }
                 })
                 .setNegativeButton("Cámara", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
+                       // typeP = "Cámara";
+                       // binding.uname.requestLayout();
+                        //binding.uname.setText(typeP);
                         takePic();
+
                     }
                 })
                 .setIcon(R.drawable.ic_insert_photo_24dp)
                 .show();
-
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) binding.usrImg.getLayoutParams();
+        //binding.addBtn.setVisibility(View.INVISIBLE);
 
         binding.usrImg.requestLayout();
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) binding.usrImg.getLayoutParams();
+        lp.width = 500;
+        lp.height = 400;
         binding.usrImg.setLayoutParams(lp);
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+
+            switch (requestCode){
+                case SELECT_PICTURE:
+                    Uri selectedImageUri = data.getData();
+                    selectedImagePath = getPath(selectedImageUri);
+                    Context context =  binding.usrImg.getContext();
+                    Uri uri = Uri.parse(String.valueOf(selectedImageUri));
+                    Picasso.with(context).load(uri).into(binding.usrImg);
+                    break;
+                case REQUEST_IMAGE_CAPTURE:
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    binding.usrImg.setImageBitmap(imageBitmap);
+                    break;
+
+            }
+            /*if (requestCode == SELECT_PICTURE) {
+                Uri selectedImageUri = data.getData();
+                selectedImagePath = getPath(selectedImageUri);
+                Context context =  binding.usrImg.getContext();
+                Uri uri = Uri.parse(String.valueOf(selectedImageUri));
+                Picasso.with(context).load(uri).into(binding.usrImg);
+            }
+            if (requestCode == REQUEST_IMAGE_CAPTURE) {
+               Bundle extras = data.getExtras();
+               Bitmap imageBitmap = (Bitmap) extras.get("data");
+               binding.usrImg.setImageBitmap(imageBitmap);
+            }*/
+        }
+    }
+
+    public String getPath(Uri uri) {
+        // just some safety built in
+        if( uri == null ) {
+
+            return null;
+        }
+        // try to retrieve the image from the media store first
+        // this will only work for images selected from gallery
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if( cursor != null ){
+            int column_index = cursor
+                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String path = cursor.getString(column_index);
+            cursor.close();
+            return path;
+        }
+        // this is our fallback here
+        return uri.getPath();
     }
 
 
