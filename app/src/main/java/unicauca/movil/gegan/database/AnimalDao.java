@@ -9,47 +9,48 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import unicauca.movil.gegan.models.Animal;
 import unicauca.movil.gegan.models.Finca;
 
 /**
- * Created by jlbel on 12/12/2016.
+ * Created by jlbel on 15/12/2016.
  */
 
-public class FincaDao {
+public class AnimalDao {
 
     SQLiteDatabase db;
-    static final String TABLE = "finca";
+    static final String TABLE = "animal";
     static final String C_ID = "id";
-    static final String C_IDUSR = "idusr";
+    static final String C_IDFINCA = "id_finca";
     static final String C_NAME = "nombre";
-    static final String C_ADDRESS = "direccion";
+    static final String C_RAZA = "direccion";
     static final String C_IMAGE = "imagen";
 
-    public FincaDao(Context context){
+    public AnimalDao(Context context){
         DataBaseHelper helper = new DataBaseHelper(context);
         db = helper.getWritableDatabase();
     }
 
-    public void insert(Finca finca){
+    public void insert(Animal animal){
         ContentValues values = new ContentValues();
-
-        values.put(C_IDUSR, finca.getIdusr());
-        values.put(C_NAME, finca.getNombre());
-        values.put(C_ADDRESS, finca.getDireccion());
-        values.put(C_IMAGE, finca.getImagen());
+        values.put(C_ID, animal.getId());
+        values.put(C_IDFINCA, animal.getId_finca());
+        values.put(C_NAME, animal.getNombre());
+        values.put(C_RAZA, animal.getRaza());
+        values.put(C_IMAGE, animal.getImagen());
 
         db.insert(TABLE, null, values);
     }
 
-    public void update(Finca finca){
+    public void update(Animal animal){
         ContentValues values = new ContentValues();
+        values.put(C_ID, animal.getId());
+        values.put(C_IDFINCA, animal.getId_finca());
+        values.put(C_NAME, animal.getNombre());
+        values.put(C_RAZA, animal.getRaza());
+        values.put(C_IMAGE, animal.getImagen());
 
-        values.put(C_IDUSR, finca.getIdusr());
-        values.put(C_NAME, finca.getNombre());
-        values.put(C_ADDRESS, finca.getDireccion());
-        values.put(C_IMAGE, finca.getImagen());
-
-        db.update(TABLE, values, "id = ?", new String[]{""+finca.getId()});
+        db.update(TABLE, values, "id = ?", new String[]{""+animal.getId()});
     }
 
     public void delete (long id){
@@ -58,7 +59,7 @@ public class FincaDao {
 
 
     public List<Finca> listByUsr(long idusr){
-        String sql = "SELECT * FROM "+ TABLE+" WHERE "+C_IDUSR+" = "+idusr;
+        String sql = "SELECT * FROM "+ TABLE+" WHERE "+C_IDFINCA+" = "+idusr;
 
         Log.i("Finca", sql);
         return cursorToList(sql);
@@ -104,6 +105,4 @@ public class FincaDao {
         }
         return data;
     }
-
-
 }

@@ -1,5 +1,6 @@
 package unicauca.movil.gegan;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements FincaAdapter.OnFi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setHandler(this);
 
         dao = new FincaDao(this);
         L.data = new ArrayList<>();
@@ -56,5 +58,10 @@ public class MainActivity extends AppCompatActivity implements FincaAdapter.OnFi
     @Override
     public void onFinca(View v) {
 
+    }
+
+    public void goToAdd(){
+        Intent intent = new Intent(this, AddFincaActivity.class);
+        startActivity(intent);
     }
 }

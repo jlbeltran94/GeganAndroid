@@ -41,6 +41,7 @@ public class FincaAdapter extends RecyclerView.Adapter<FincaAdapter.FincaViewHol
         holder.binding.setFin(L.data.get(position));
         holder.binding.setHandler(this);
 
+
     }
 
     @Override

@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import unicauca.movil.gegan.database.FincaDao;
 import unicauca.movil.gegan.databinding.ActivityLoginBinding;
+import unicauca.movil.gegan.models.Finca;
 
 
 /**
@@ -16,6 +18,7 @@ import unicauca.movil.gegan.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity{
 
     ActivityLoginBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

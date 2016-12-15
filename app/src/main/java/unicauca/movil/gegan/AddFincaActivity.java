@@ -1,9 +1,7 @@
 package unicauca.movil.gegan;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,55 +9,49 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import unicauca.movil.gegan.databinding.ActivityRegisterBinding;
-import unicauca.movil.gegan.models.Usuario;
+import unicauca.movil.gegan.database.FincaDao;
+import unicauca.movil.gegan.databinding.ActivityAddFincaBinding;
+import unicauca.movil.gegan.models.Finca;
 
 /**
- * Created by jlbel on 10/12/2016.
+ * Created by jlbel on 15/12/2016.
  */
 
-public class RegisterActivity extends AppCompatActivity{
+public class AddFincaActivity extends AppCompatActivity{
 
-    ActivityRegisterBinding binding;
-    Usuario usuario;
-    String encoded;
-    //String typeP;
-
-
+    ActivityAddFincaBinding binding;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private String selectedImagePath;
     private static final int SELECT_PICTURE = 2;
+    Finca finca;
+    FincaDao dao;
+    String encoded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_finca);
         binding.setHandler(this);
-
-        usuario = new Usuario();
-
-
+        encoded = new String();
+        finca = new Finca();
+        dao = new FincaDao(this);
 
 
     }
-
 
 
     public void takePic() {
@@ -87,33 +79,34 @@ public class RegisterActivity extends AppCompatActivity{
                 .setMessage("Selecciona una imagen o tómala ahora mismo")
                 .setPositiveButton("Galería", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                      //  typeP = "Galería";
-                      //  binding.uname.requestLayout();
-                      //  binding.uname.setText(typeP);
+                        //  typeP = "Galería";
+                        //  binding.uname.requestLayout();
+                        //  binding.uname.setText(typeP);
                         getPic();
 
                     }
                 })
                 .setNegativeButton("Cámara", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                       // typeP = "Cámara";
-                       // binding.uname.requestLayout();
+                        // typeP = "Cámara";
+                        // binding.uname.requestLayout();
                         //binding.uname.setText(typeP);
                         takePic();
 
                     }
                 })
-                .setIcon(R.drawable.ic_insert_photo_24dp)
+                .setIcon(R.drawable.ic_insert_photo2_24dp)
                 .show();
         //binding.addBtn.setVisibility(View.INVISIBLE);
 
-        binding.usrImg.requestLayout();
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) binding.usrImg.getLayoutParams();
+        binding.finImg.requestLayout();
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) binding.finImg.getLayoutParams();
         lp.width = 600;
         lp.height = 500;
-        binding.usrImg.setLayoutParams(lp);
+        binding.finImg.setLayoutParams(lp);
 
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -131,14 +124,14 @@ public class RegisterActivity extends AppCompatActivity{
                         Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
                         parcelFileDescriptor.close();
 
-                        ByteArrayOutputStream  byteArrayOutputStream = new ByteArrayOutputStream();
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                         image.compress(Bitmap.CompressFormat.WEBP, 50, byteArrayOutputStream);
                         byte[] byteArray = byteArrayOutputStream .toByteArray();
 
                         encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
 
-                        binding.usrImg.setImageBitmap(image);
+                        binding.finImg.setImageBitmap(image);
 
 
 
@@ -163,52 +156,28 @@ public class RegisterActivity extends AppCompatActivity{
 
                     encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
-                    binding.usrImg.setImageBitmap(imageBitmap);
+                    binding.finImg.setImageBitmap(imageBitmap);
                     break;
 
             }
         }
     }
+    
+    public void save(){
+        String nombre = binding.name.getEditText().getText().toString();
+        String direccion = binding.address.getEditText().getText().toString();
+        String imagen = encoded;
+        Long idusr = Long.valueOf(1);
 
 
-    public void addUsr(){
-        usuario.setNombre(binding.name.getEditText().getText().toString());
-        usuario.setCedula(binding.identy.getEditText().getText().toString());
-        usuario.setUsr(binding.userName.getEditText().toString());
-        usuario.setImagen(encoded);
+        finca.setIdusr(idusr);
+        finca.setNombre(nombre);
+        finca.setDireccion(direccion);
+        finca.setImagen(imagen);
+
+        dao.insert(finca);
+        finish();
+
+
     }
-
-/*
-    public String getPath(Uri uri) {
-        // just some safety built in
-        if( uri == null ) {
-
-            return null;
-        }
-        // try to retrieve the image from the media store first
-        // this will only work for images selected from gallery
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-        if( cursor != null ){
-            int column_index = cursor
-                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            String path = cursor.getString(column_index);
-            cursor.close();
-            return path;
-        }
-        // this is our fallback here
-        return uri.getPath();
-    }*/
-
-
-
-
-
- /*   public void getPic(){
-        Intent getPictureIntent = new Intent(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        if(getPictureIntent.resolveActivity(getPackageManager()) != null){
-            startActivityForResult(getPictureIntent, Exter);
-        }
-    }*/
 }

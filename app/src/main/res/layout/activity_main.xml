@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <data>
-
+        <variable
+            name="handler"
+            type="unicauca.movil.gegan.MainActivity"/>
     </data>
 
     <android.support.v4.widget.DrawerLayout
@@ -30,6 +32,7 @@
                 app:fabSize="normal"
                 android:layout_margin="@dimen/xsmall"
                 android:src="@drawable/ic_add_24dp"
+                android:onClick="@{()-> handler.goToAdd()}"
                 />
         </FrameLayout>
     </android.support.v4.widget.DrawerLayout>

@@ -34,7 +34,7 @@
                     android:background="#333"
                     android:scaleType="centerCrop"
                     tools:src="@drawable/fincas"
-                    app:imgUrl="@{fin.imagen}"
+                    android:src="@{fin.imagen}}"
                     />
                 <ImageView
                     android:layout_width="match_parent"
