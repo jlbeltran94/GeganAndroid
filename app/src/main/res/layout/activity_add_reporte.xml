@@ -2,6 +2,11 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
+    <data>
+        <variable
+            name="handler"
+            type="unicauca.movil.gegan.AddReportesActivity"/>
+    </data>
 
     <LinearLayout
         android:orientation="vertical"
@@ -25,7 +30,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:hint="@string/tipo"/>
+                        android:hint="@string/tipo"
+                        android:onClick="selectType"/>
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/valor"
@@ -49,13 +55,15 @@
                         android:inputType="textImeMultiLine"/>
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/fecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/fecha"
-                        android:inputType="date"/>
+                        android:inputType="date"
+                        android:onClick="datePicker"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>

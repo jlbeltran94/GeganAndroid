@@ -33,7 +33,7 @@
                  tools:text="Valor"
                  style="@style/Base.TextAppearance.AppCompat.Title"
                  android:textSize="@dimen/icon"
-                 android:text="@{reporte.valor}"
+                 android:text='@{""+reporte.valor}'
                  />
              <TextView
                  android:id="@+id/tipo"

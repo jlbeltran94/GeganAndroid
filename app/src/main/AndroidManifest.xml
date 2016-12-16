@@ -30,6 +30,8 @@
         <activity android:name=".FincaDetailActivity"/>
         <activity android:name=".AnimalesActivity"/>
         <activity android:name=".AddAnimalActivity"/>
+        <activity android:name=".AddReportesActivity"/>
+        <activity android:name=".ReportesActivity"/>
 
 
     </application>

@@ -1,6 +1,7 @@
 package unicauca.movil.gegan;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -112,6 +113,11 @@ public class ReportesActivity extends AppCompatActivity implements ReporteAdapte
 
     @Override
     public void onEdit(Long id) {
+        Intent intent = new Intent(this, AddReportesActivity.class);
+        intent.putExtra(AddReportesActivity.EXTRA_ID, id);
+        intent.putExtra(AddReportesActivity.EXTRA_EDIT, 1);
+
+        startActivity(intent);
 
     }
 
@@ -119,5 +125,11 @@ public class ReportesActivity extends AppCompatActivity implements ReporteAdapte
         dao.delete(id);
         loadData();
         adapter.notifyDataSetChanged();
+    }
+
+    public void goToAdd(){
+        Intent intent = new Intent(this, AddReportesActivity.class);
+        intent.putExtra(AddFincaActivity.EXTRA_EDIT, 0);
+        startActivity(intent);
     }
 }

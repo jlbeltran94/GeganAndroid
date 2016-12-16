@@ -41,4 +41,8 @@ public class FincaDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AnimalesActivity.class);
         startActivity(intent);
     }
+    public void goToReportes(){
+        Intent intent = new Intent(this, ReportesActivity.class);
+        startActivity(intent);
+    }
 }

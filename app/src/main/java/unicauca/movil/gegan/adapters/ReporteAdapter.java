@@ -67,7 +67,11 @@ public class ReporteAdapter extends RecyclerView.Adapter<ReporteAdapter.ReporteV
     }
 
     public void onClickDelete(Long id){
-        onReporteListener.onDelete(id);
+        try {
+            onReporteListener.onDelete(id);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onClickEdit(Long id){
