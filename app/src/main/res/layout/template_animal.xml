@@ -89,6 +89,7 @@
                     android:layout_alignTop="@id/icon_gender"
                     android:layout_alignBottom="@id/icon_gender"
                     tools:text="Sexo"
+                    android:text="@{animal.sexo}"
 
                     />
                 <ImageView

@@ -8,4 +8,9 @@
     <string name="user_name">Nombre de Usuario:</string>
     <string name="identy">Cedula:</string>
     <string name="name">Nombre:</string>
+    <string name="raza">Raza:</string>
+    <string name="tipo">Tipo:</string>
+    <string name="peso_nac">Peso al nacer:</string>
+    <string name="nacimiento">Fecha de Nacimiento:</string>
+    <string name="peso_actual">Peso Actual:</string>
 </resources>

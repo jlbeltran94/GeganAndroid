@@ -34,7 +34,6 @@ public class AddFincaActivity extends AppCompatActivity{
 
     ActivityAddFincaBinding binding;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private String selectedImagePath;
     private static final int SELECT_PICTURE = 2;
     public static final String EXTRA_ID = "id";
     public static final String EXTRA_EDIT = "edit";

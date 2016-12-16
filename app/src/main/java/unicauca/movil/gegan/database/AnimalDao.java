@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,9 +45,10 @@ public class AnimalDao {
         ContentValues values = new ContentValues();
         values.put(C_NAME, animal.getNombre());
         values.put(C_RAZA, animal.getRaza());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
         Date date = animal.getNacimiento();
-        values.put(C_NACIMIENTO, dateFormat.format(date));
+        values.put(C_NACIMIENTO, dateFormat.format(date.getTime()));
         values.put(C_TIPO, animal.getTipo());
         values.put(C_PESO, animal.getPeso());
         values.put(C_LITROS, animal.getLitros_diarios());
@@ -54,6 +56,7 @@ public class AnimalDao {
         values.put(C_IMAGE, animal.getImagen());
         values.put(C_PESO_AL_NACER, animal.getPeso_al_nacer());
         values.put(C_GANANCIA, animal.getGanancia());
+        values.put(C_SEXO, animal.getSexo());
 
 
 
@@ -64,9 +67,10 @@ public class AnimalDao {
         ContentValues values = new ContentValues();
         values.put(C_NAME, animal.getNombre());
         values.put(C_RAZA, animal.getRaza());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
         Date date = animal.getNacimiento();
-        values.put(C_NACIMIENTO, dateFormat.format(date));
+        values.put(C_NACIMIENTO, dateFormat.format(date.getTime()));
         values.put(C_TIPO, animal.getTipo());
         values.put(C_PESO, animal.getPeso());
         values.put(C_LITROS, animal.getLitros_diarios());
@@ -74,6 +78,7 @@ public class AnimalDao {
         values.put(C_IMAGE, animal.getImagen());
         values.put(C_PESO_AL_NACER, animal.getPeso_al_nacer());
         values.put(C_GANANCIA, animal.getGanancia());
+        values.put(C_SEXO, animal.getSexo());
 
         db.update(TABLE, values, "id = ?", new String[]{""+animal.getId()});
     }
@@ -115,7 +120,7 @@ public class AnimalDao {
         a.setNombre(cursor.getString(1));
         a.setRaza(cursor.getString(2));
         a.setSexo(cursor.getString(3));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
         a.setNacimiento(dateFormat.parse(cursor.getString(4)));
         a.setTipo(cursor.getString(5));
         a.setPeso(cursor.getFloat(6));

@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements FincaAdapter.OnFi
 
     public void goToAdd(){
         Intent intent = new Intent(this, AddFincaActivity.class);
-        intent.putExtra(AddFincaActivity.EXTRA_ID, 0);
+        intent.putExtra(AddFincaActivity.EXTRA_EDIT, 0);
         startActivity(intent);
     }
 }

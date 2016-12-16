@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.ParseException;
+
 import unicauca.movil.gegan.R;
 import unicauca.movil.gegan.databinding.TemplateAnimalBinding;
 import unicauca.movil.gegan.util.L;
@@ -20,7 +22,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
 
     public interface OnAnimalListener{
         void onAnimal(Long id);
-        void onDelete(Long id);
+        void onDelete(Long id) throws ParseException;
         void onEdit(Long id);
     }
 
@@ -65,8 +67,12 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
         onAnimalListener.onAnimal(id);
     }
 
-    public void onClickDelete(Long id){
-        onAnimalListener.onDelete(id);
+    public void onClickDelete(Long id) {
+        try {
+            onAnimalListener.onDelete(id);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onClickEdit(Long id){

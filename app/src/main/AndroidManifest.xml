@@ -29,6 +29,7 @@
         <activity android:name=".AddFincaActivity"/>
         <activity android:name=".FincaDetailActivity"/>
         <activity android:name=".AnimalesActivity"/>
+        <activity android:name=".AddAnimalActivity"/>
 
 
     </application>

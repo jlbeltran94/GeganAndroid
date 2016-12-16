@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     static final String DB_NAME = "gegan2.db";
-    static int VERSION = 1;
+    static int VERSION = 3;
     public DataBaseHelper(Context context){
         super(context, DB_NAME, null, VERSION);
     }

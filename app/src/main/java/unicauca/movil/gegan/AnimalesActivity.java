@@ -1,9 +1,12 @@
 package unicauca.movil.gegan;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
@@ -74,16 +77,50 @@ public class AnimalesActivity extends AppCompatActivity implements AnimalAdapter
     }
 
     @Override
-    public void onDelete(Long id) {
+    public void onDelete(final Long id) throws ParseException {
+        animal = dao.getById(id);
+        String name = animal.getNombre();
+        new AlertDialog.Builder(this)
+                .setTitle("Esta a punto de eliminar un animal")
+                .setMessage("¿Esta seguro que desea eliminar el animal "+name+"?")
+                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            yesDelete(id);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
 
+
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(R.drawable.ic_error_outline_24dp)
+                .show();
     }
 
     @Override
     public void onEdit(Long id) {
+        Intent intent = new Intent(this, AddAnimalActivity.class);
+        intent.putExtra(AddFincaActivity.EXTRA_ID, id);
+        intent.putExtra(AddFincaActivity.EXTRA_EDIT, 1);
 
+        startActivity(intent);
     }
 
     public void goToAdd(){
+        Intent intent = new Intent(this, AddAnimalActivity.class);
+        intent.putExtra(AddFincaActivity.EXTRA_EDIT, 0);
+        startActivity(intent);
+    }
 
+    public void yesDelete(Long id) throws ParseException {
+        dao.delete(id);
+        loadData();
+        adapter.notifyDataSetChanged();
     }
 }
