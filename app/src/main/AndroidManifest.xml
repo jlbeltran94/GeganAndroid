@@ -33,6 +33,7 @@
         <activity android:name=".AddReportesActivity"/>
         <activity android:name=".ReportesActivity"/>
         <activity android:name=".AnimalDetailActivity"/>
+        <activity android:name=".ReporteDetailActivity"/>
 
 
 

@@ -82,7 +82,9 @@ public class ReportesActivity extends AppCompatActivity implements ReporteAdapte
 
     @Override
     public void onReporte(Long id) {
-
+        Intent intent = new Intent(this, ReporteDetailActivity.class);
+        intent.putExtra(ReporteDetailActivity.EXTRA_ID, id);
+        startActivity(intent);
     }
 
     @Override
