@@ -78,6 +78,10 @@ public class AnimalesActivity extends AppCompatActivity implements AnimalAdapter
 
     @Override
     public void onAnimal(Long id){
+        Intent intent = new Intent(this, AnimalDetailActivity.class);
+        intent.putExtra(AnimalDetailActivity.EXTRA_ID, id);
+        startActivity(intent);
+
 
     }
 

@@ -17,12 +17,11 @@
         android:layout_height="wrap_content"
         >
      <android.support.v7.widget.CardView
-         android:layout_margin="@dimen/small"
+         android:layout_margin="@dimen/xsmall"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:elevation="@dimen/small">
-         <LinearLayout
-             android:orientation="vertical"
+         <RelativeLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:padding="@dimen/small">
@@ -37,6 +36,7 @@
                  />
              <TextView
                  android:id="@+id/tipo"
+                 android:layout_below="@id/valor"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  tools:text="@string/tipo"
@@ -44,7 +44,25 @@
                  android:textSize="@dimen/small"
                  android:text="@{reporte.tipo}"
                  />
-         </LinearLayout>
+             <ImageView
+                 android:id="@+id/icon_delete"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/ic_delete2_24dp"
+                 android:layout_alignParentRight="true"
+                 android:onClick="@{()->handler.onClickDelete(reporte.id)}"
+
+                 />
+             <ImageView
+                 android:id="@+id/icon_edit"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:src="@drawable/ic_edit2_24dp"
+                 android:layout_below="@id/icon_delete"
+                 android:layout_alignParentRight="true"
+                 android:onClick="@{()->handler.onClickEdit(reporte.id)}"
+                 />
+         </RelativeLayout>
      </android.support.v7.widget.CardView>
 
     </FrameLayout>

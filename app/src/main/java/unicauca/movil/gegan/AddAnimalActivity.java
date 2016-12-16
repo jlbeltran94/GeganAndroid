@@ -84,6 +84,7 @@ public class AddAnimalActivity extends AppCompatActivity implements DatePickerDi
                 binding.pesoNac.getEditText().setText(""+animal.getPeso_al_nacer());
                 binding.pesoAc.getEditText().setText(""+animal.getPeso());
                 binding.litros.getEditText().setText(""+animal.getLitros_diarios());
+                binding.button.setText("Editar");
 
                 byte[] decodedString = Base64.decode(encoded, Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

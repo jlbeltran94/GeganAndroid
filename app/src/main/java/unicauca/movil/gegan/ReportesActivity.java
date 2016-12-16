@@ -47,6 +47,7 @@ public class ReportesActivity extends AppCompatActivity implements ReporteAdapte
         binding.recycler.setAdapter(adapter);
         binding.recycler.setLayoutManager(new LinearLayoutManager(this));
 
+
         preferences = getSharedPreferences("preferencias", MODE_PRIVATE);
 
         try {

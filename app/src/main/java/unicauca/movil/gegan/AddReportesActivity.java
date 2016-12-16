@@ -62,6 +62,7 @@ public class AddReportesActivity extends AppCompatActivity implements DatePicker
                 binding.valor.getEditText().setText(""+reporte.getValor());
                 binding.fecha.getEditText().setText(""+reporte.getFecha());
                 binding.comentario.getEditText().setText(reporte.getComentario());
+                binding.button.setText("Editar");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -109,6 +110,7 @@ public class AddReportesActivity extends AppCompatActivity implements DatePicker
         reporte.setId_finca(idfinca);
         reporte.setTipo(tipo);
         reporte.setValor(valor);
+        reporte.setComentario(comentario);
 
         if(edit == 0){
             dao.insert(reporte);
