@@ -104,6 +104,7 @@ public class AddAnimalActivity extends AppCompatActivity implements DatePickerDi
 
     }
 
+    //region pics
     public void takePic() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -121,6 +122,7 @@ public class AddAnimalActivity extends AppCompatActivity implements DatePickerDi
         startActivityForResult(Intent.createChooser(intent,
                 "Select Picture"), SELECT_PICTURE);
     }
+    //endregion
 
     //region selecter pic
     public void picSelect(){
@@ -155,21 +157,8 @@ public class AddAnimalActivity extends AppCompatActivity implements DatePickerDi
     }
     //endregion
 
-
-  /**  public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.pick_color)
-                .setItems(R.array.colors_array, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // The 'which' argument contains the index position
-                        // of the selected item
-                    }
-                });
-        return builder.create();
-    }**/
-
-
-    public void selectSex(View view){
+    //region select sex
+  public void selectSex(View view){
 
         final String[] value = new String[]{
                 "Macho",
@@ -184,12 +173,42 @@ public class AddAnimalActivity extends AppCompatActivity implements DatePickerDi
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String selectedText = Arrays.asList(value).get(i);
                         binding.sexo.getEditText().setText(selectedText);
+                        if(selectedText == "Macho"){
+                            binding.litros.setVisibility(View.INVISIBLE);
+                            animal.setLitros_diarios(0);
+                        }else if(selectedText == "Hembra"){
+                            binding.litros.setVisibility(View.VISIBLE);
+                        }
                     }
                 })
                 .setIcon(R.drawable.ic_gender)
                 .show();
 
     }
+    //endregion
+
+    //region select type
+    public void selectType(View view){
+
+        final String[] value = new String[]{
+                "Carne",
+                "Leche"
+
+        };
+
+        new AlertDialog.Builder(this)
+                .setTitle("Tipo:")
+                .setItems(value, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String selectedText = Arrays.asList(value).get(i);
+                        binding.tipo.getEditText().setText(selectedText);
+                    }
+                })
+                .show();
+
+    }
+    //endregion
 
     //region results picture
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -315,6 +334,17 @@ public class AddAnimalActivity extends AppCompatActivity implements DatePickerDi
     //endregion
 
     //region Datepicker
+    /**  public Dialog onCreateDialog(Bundle savedInstanceState) {
+     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+     builder.setTitle(R.string.pick_color)
+     .setItems(R.array.colors_array, new DialogInterface.OnClickListener() {
+     public void onClick(DialogInterface dialog, int which) {
+     // The 'which' argument contains the index position
+     // of the selected item
+     }
+     });
+     return builder.create();
+     }**/
 
     /**
      * This callback method, call DatePickerFragment class,

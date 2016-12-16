@@ -13,4 +13,7 @@
     <string name="peso_nac">Peso al nacer:</string>
     <string name="nacimiento">Fecha de Nacimiento:</string>
     <string name="peso_actual">Peso Actual:</string>
+    <string name="valor">Valor:</string>
+    <string name="comentario">Comentario:</string>
+    <string name="fecha">Fecha:</string>
 </resources>

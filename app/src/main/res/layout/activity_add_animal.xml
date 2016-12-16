@@ -54,7 +54,7 @@
                         <android.support.design.widget.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType="none"
                             android:onClick="selectSex"
                             android:hint="Sexo:"
                             />
@@ -66,6 +66,7 @@
                         <android.support.design.widget.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:onClick="selectType"
                             android:hint="@string/tipo"/>
                     </android.support.design.widget.TextInputLayout>
                     <android.support.design.widget.TextInputLayout

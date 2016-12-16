@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="reporte"
+            type="unicauca.movil.gegan.models.Reporte"/>
+        <variable
+            name="handler"
+            type="unicauca.movil.gegan.adapters.ReporteAdapter"/>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+     <android.support.v7.widget.CardView
+         android:layout_margin="@dimen/small"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:elevation="@dimen/small">
+         <LinearLayout
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:padding="@dimen/small">
+             <TextView
+                 android:id="@+id/valor"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 tools:text="Valor"
+                 style="@style/Base.TextAppearance.AppCompat.Title"
+                 android:textSize="@dimen/icon"
+                 android:text="@{reporte.valor}"
+                 />
+             <TextView
+                 android:id="@+id/tipo"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 tools:text="@string/tipo"
+                 style="@style/TextAppearance.AppCompat.Body1"
+                 android:textSize="@dimen/small"
+                 android:text="@{reporte.tipo}"
+                 />
+         </LinearLayout>
+     </android.support.v7.widget.CardView>
+
+    </FrameLayout>
+</layout>
